@@ -1,4 +1,4 @@
-FROM elixir:1.4.4
+FROM elixir:1.4.5
 MAINTAINER Ryan Schlesinger <ryan@outstand.com>
 
 ENV GOSU_VERSION 1.10
