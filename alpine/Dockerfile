@@ -1,11 +1,12 @@
-FROM elixir:1.5.3
+FROM elixir:1.5.3-alpine
 MAINTAINER Ryan Schlesinger <ryan@outstand.com>
 
 ENV GOSU_VERSION 1.10
 ENV DUMB_INIT_VERSION 1.2.0
 ENV FSCONSUL_VERSION 0.6.4.1
 
-RUN mkdir -p /tmp/build && \
+RUN apk add --no-cache ca-certificates wget gnupg openssl jq git bash && \
+    mkdir -p /tmp/build && \
     cd /tmp/build && \
     gpg --keyserver pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 && \
     wget -O gosu "https://github.com/tianon/gosu/releases/download/${GOSU_VERSION}/gosu-amd64" && \
@@ -27,15 +28,9 @@ RUN mkdir -p /tmp/build && \
     cp fsconsul /bin/fsconsul && \
     cd /tmp && \
     rm -rf /tmp/build && \
+    apk del gnupg && \
     rm -rf /root/.gnupg
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    locales \
-    jq \
-    openssl \
-  && rm -rf /var/lib/apt/lists/*
-
-RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
