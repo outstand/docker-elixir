@@ -2,11 +2,8 @@ FROM outstand/su-exec as su-exec
 FROM outstand/tini as tini
 FROM outstand/fsconsul as fsconsul
 
-FROM elixir:1.6.4
-MAINTAINER Ryan Schlesinger <ryan@outstand.com>
-
-ENV TINI_VERSION v0.17.0
-ENV FSCONSUL_VERSION 0.6.4.1
+FROM elixir:1.6.5
+LABEL maintainer="Ryan Schlesinger <ryan@outstand.com>"
 
 COPY --from=su-exec /sbin/su-exec /sbin/
 COPY --from=tini /sbin/tini /sbin/
