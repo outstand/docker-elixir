@@ -1,6 +1,6 @@
 FROM outstand/fsconsul as fsconsul
 
-FROM elixir:1.10.3-alpine
+FROM elixir:1.10.4-alpine
 LABEL maintainer="Ryan Schlesinger <ryan@outstand.com>"
 
 COPY --from=fsconsul /bin/fsconsul /bin/

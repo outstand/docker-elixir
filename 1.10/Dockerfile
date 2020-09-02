@@ -2,7 +2,7 @@ FROM outstand/su-exec as su-exec
 FROM outstand/tini as tini
 FROM outstand/fsconsul as fsconsul
 
-FROM elixir:1.10.3
+FROM elixir:1.10.4
 LABEL maintainer="Ryan Schlesinger <ryan@outstand.com>"
 
 COPY --from=su-exec /sbin/su-exec /sbin/
