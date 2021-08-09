@@ -1,6 +1,33 @@
 FROM outstand/fsconsul as fsconsul
 
-FROM elixir:1.12.2-alpine
+FROM 786715713882.dkr.ecr.us-east-1.amazonaws.com/erlang:24.0.5.0-alpine-3.13
+
+# elixir expects utf8.
+ENV ELIXIR_VERSION="v1.12.2" \
+  LANG=C.UTF-8
+
+RUN set -xe \
+      && ELIXIR_DOWNLOAD_URL="https://github.com/elixir-lang/elixir/archive/${ELIXIR_VERSION}.tar.gz" \
+      && ELIXIR_DOWNLOAD_SHA256="701006d1279225fc42f15c8d3f39906db127ddcc95373d34d8d160993356b15c" \
+      && buildDeps=' \
+      ca-certificates \
+      curl \
+      make \
+      ' \
+      && apk add --no-cache --virtual .build-deps $buildDeps \
+      && curl -fSL -o elixir-src.tar.gz $ELIXIR_DOWNLOAD_URL \
+      && echo "$ELIXIR_DOWNLOAD_SHA256  elixir-src.tar.gz" | sha256sum -c - \
+      && mkdir -p /usr/local/src/elixir \
+      && tar -xzC /usr/local/src/elixir --strip-components=1 -f elixir-src.tar.gz \
+      && rm elixir-src.tar.gz \
+      && cd /usr/local/src/elixir \
+      && make install clean \
+      && find /usr/local/src/elixir/ -type f -not -regex "/usr/local/src/elixir/lib/[^\/]*/lib.*" -exec rm -rf {} + \
+      && find /usr/local/src/elixir/ -type d -depth -empty -delete \
+      && apk del .build-deps
+
+CMD ["iex"]
+
 LABEL maintainer="Ryan Schlesinger <ryan@outstand.com>"
 
 COPY --from=fsconsul /bin/fsconsul /bin/
