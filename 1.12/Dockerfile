@@ -2,7 +2,7 @@ FROM outstand/su-exec as su-exec
 FROM outstand/tini as tini
 FROM outstand/fsconsul as fsconsul
 
-FROM elixir:1.12.3
+FROM 786715713882.dkr.ecr.us-east-1.amazonaws.com/24.1.4.0-alpine-3.13
 LABEL maintainer="Ryan Schlesinger <ryan@outstand.com>"
 
 COPY --from=su-exec /sbin/su-exec /sbin/
