@@ -1,6 +1,6 @@
 FROM outstand/fsconsul as fsconsul
 
-FROM 786715713882.dkr.ecr.us-east-1.amazonaws.com/erlang:24.1.4.0-alpine-3.13
+FROM 786715713882.dkr.ecr.us-east-1.amazonaws.com/erlang:24.2.0.0-alpine-3.13
 
 # elixir expects utf8.
 ENV ELIXIR_VERSION="v1.12.3" \

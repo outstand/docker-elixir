@@ -1,14 +1,14 @@
 FROM outstand/fsconsul as fsconsul
 
-FROM 786715713882.dkr.ecr.us-east-1.amazonaws.com/erlang:24.1.7.0-alpine-3.13
+FROM 786715713882.dkr.ecr.us-east-1.amazonaws.com/erlang:24.2.0.0-alpine-3.13
 
 # elixir expects utf8.
-ENV ELIXIR_VERSION="v1.13.1" \
+ENV ELIXIR_VERSION="v1.13.2" \
   LANG=C.UTF-8
 
 RUN set -xe \
       && ELIXIR_DOWNLOAD_URL="https://github.com/elixir-lang/elixir/archive/${ELIXIR_VERSION}.tar.gz" \
-      && ELIXIR_DOWNLOAD_SHA256="deaba8156b11777adfa28e54e76ddf49ab1a0132cca54c41d9d7648e800edcc8" \
+      && ELIXIR_DOWNLOAD_SHA256="03afed42dccf4347c4d3ae2b905134093a3ba2245d0d3098d75009a1d659ed1a" \
       && buildDeps=' \
       ca-certificates \
       curl \
